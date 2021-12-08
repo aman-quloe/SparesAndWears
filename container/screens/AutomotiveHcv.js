@@ -21,13 +21,13 @@ const width = Dimensions.get('window').width;
 
 import axios from 'axios';
 
-const NewProducts = () => {
+const AutomotiveHcv = () => {
   const [data, setdata] = useState();
   const [loading, setLoading] = useState(true);
 
   const fetchHandler = async () => {
     await axios
-      .get('https://www.sparesandwears.com/AndroidCon/fetch_newProducts.php')
+      .get('https://sparesandwears.com/AndroidCon/fetchAutomotiveHCV.php')
       .then(response => {
         console.log(response.data.success);
         if (response.data.success == 'true') {
@@ -91,24 +91,68 @@ const NewProducts = () => {
               }}>
               <Text
                 style={{
-                  margin: 26,
+                  margin: 5,
                   color: '#c4171d',
-                  fontSize: 22,
+                  fontSize: 30,
                   fontStyle: 'italic',
                   fontWeight: '700',
                   justifyContent: 'center',
                   alignSelf: 'center',
                 }}>
-                New Products
+                Automotive
               </Text>
               <View
                 style={{
                   width: width,
-                  height: 90,
+                  height: 170,
                   backgroundColor: '#b2dbef',
                   justifyContent: 'space-evenly',
                   alignItems: 'center',
                 }}>
+                <View
+                  style={{
+                    width: '70%',
+                    height: 34,
+                    borderWidth: 1,
+                    borderRadius: 17,
+                    backgroundColor: '#ffff',
+                    flexDirection: 'row',
+                  }}>
+                  <TextInput style={{width: '80%'}}></TextInput>
+                  <View
+                    style={{
+                      backgroundColor: '#c4171d',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '20%',
+                      borderTopRightRadius: 17,
+                      borderBottomRightRadius: 17,
+                    }}>
+                    <AntDesign name="caretdown" size={22} color="#ffff" />
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: '70%',
+                    height: 34,
+                    borderWidth: 1,
+                    borderRadius: 17,
+                    backgroundColor: '#ffff',
+                    flexDirection: 'row',
+                  }}>
+                  <TextInput style={{width: '80%'}}></TextInput>
+                  <View
+                    style={{
+                      backgroundColor: '#c4171d',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '20%',
+                      borderTopRightRadius: 17,
+                      borderBottomRightRadius: 17,
+                    }}>
+                    <AntDesign name="caretdown" size={22} color="#ffff" />
+                  </View>
+                </View>
                 <View
                   style={{
                     width: '70%',
@@ -176,7 +220,7 @@ const NewProducts = () => {
   );
 };
 
-export default NewProducts;
+export default AutomotiveHcv;
 
 const styles = StyleSheet.create({
   screen: {

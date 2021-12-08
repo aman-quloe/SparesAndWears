@@ -37,7 +37,9 @@ const GiftCard = () => {
               borderRadius: 17,
               flexDirection: 'row',
             }}>
-            <TextInput placeholder="Search" style={{width: '80%'}}></TextInput>
+            <TextInput
+              placeholder="Search"
+              style={{width: '80%', padding: 3}}></TextInput>
             <View
               style={{
                 backgroundColor: '#c4171d',
@@ -56,7 +58,7 @@ const GiftCard = () => {
           <View style={{height: 550, justifyContent: 'center'}}>
             <View
               style={{
-                width: 260,
+                width: width / 1.6,
                 height: 160,
                 paddingVertical: 3,
                 paddingHorizontal: 10,
@@ -86,7 +88,7 @@ const GiftCard = () => {
                 <Image
                   source={cardred}
                   style={{
-                    width: 100,
+                    width: '60%',
                     height: 100,
                     resizeMode: 'contain',
                   }}></Image>
@@ -94,7 +96,7 @@ const GiftCard = () => {
             </View>
             <View
               style={{
-                width: 260,
+                width: width / 1.6,
                 height: 160,
                 paddingVertical: 3,
                 paddingHorizontal: 10,
@@ -125,7 +127,7 @@ const GiftCard = () => {
                 <Image
                   source={cardblue}
                   style={{
-                    width: 100,
+                    width: '60%',
                     height: 100,
                     resizeMode: 'contain',
                   }}></Image>

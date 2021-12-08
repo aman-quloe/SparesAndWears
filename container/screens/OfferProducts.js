@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  FlatList,
 } from 'react-native';
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
@@ -18,40 +19,72 @@ import img from '../assets/images/homeimg.jpg';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-const OtherProducts = () => {
-  return (
-    <>
-      <View style={styles.screen}>
-        <View style={styles.header}>
-          <Image
-            source={Logo}
-            style={{width: 110, height: 60, resizeMode: 'contain'}}
-          />
+import axios from 'axios';
+
+const OfferProducts = () => {
+  const [data, setdata] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const fetchHandler = async () => {
+    await axios
+      .get('https://www.sparesandwears.com/AndroidCon/fetch_offers.php')
+      .then(response => {
+        console.log(response.data.success);
+        if (response.data.success == 'true') {
+          setdata(response.data.data);
+          setLoading(false);
+        }
+      })
+      .catch(err => console.log(err.response.data));
+  };
+
+  useEffect(() => {
+    fetchHandler();
+    return () => {};
+  }, []);
+
+  return loading == true ? (
+    <Text>Loading....</Text>
+  ) : (
+    <View style={styles.screen}>
+      <View style={styles.header}>
+        <Image
+          source={{
+            uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
+          }}
+          style={{width: 110, height: 60, resizeMode: 'contain'}}
+        />
+        <View
+          style={{
+            width: '50%',
+            height: 34,
+            borderWidth: 1,
+            borderRadius: 17,
+            flexDirection: 'row',
+          }}>
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="grey"
+            style={{width: '80%', padding: 3}}></TextInput>
           <View
             style={{
-              width: '50%',
-              height: 34,
-              borderWidth: 1,
-              borderRadius: 17,
-              flexDirection: 'row',
+              backgroundColor: '#c4171d',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '20%',
+              borderTopRightRadius: 17,
+              borderBottomRightRadius: 17,
             }}>
-            <TextInput placeholder="Search" style={{width: '80%'}}></TextInput>
-            <View
-              style={{
-                backgroundColor: '#c4171d',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '20%',
-                borderTopRightRadius: 17,
-                borderBottomRightRadius: 17,
-              }}>
-              <AntDesign name="search1" size={18} color="#ffff" />
-            </View>
+            <AntDesign name="search1" size={18} color="#ffff" />
           </View>
         </View>
+      </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{alignItems: 'center'}}>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={data}
+        ListHeaderComponent={() => {
+          return (
             <View
               style={{
                 width: width,
@@ -68,7 +101,7 @@ const OtherProducts = () => {
                   justifyContent: 'center',
                   alignSelf: 'center',
                 }}>
-                Other Products
+                Offer Products
               </Text>
               <View
                 style={{
@@ -102,7 +135,10 @@ const OtherProducts = () => {
                 </View>
               </View>
             </View>
-
+          );
+        }}
+        renderItem={({item}) => {
+          return (
             <View style={styles.shadowboxlarge}>
               <Image
                 source={product}
@@ -113,13 +149,11 @@ const OtherProducts = () => {
                 }}
               />
               <View style={{width: '60%'}}>
-                <Text style={styles.producttitle}>
-                  Scooter Foot Mat Epdm Rubber-Pleasure
+                <Text style={styles.producttitle}>{item.Title}</Text>
+
+                <Text style={{fontWeight: '600', fontSize: 16}}>
+                  {`Rs. ${item.MRP}`}
                 </Text>
-                <Text style={{fontWeight: '600', color: 'black', fontSize: 16}}>
-                  Hero
-                </Text>
-                <Text style={{fontWeight: '600', fontSize: 16}}>Rs.175.0</Text>
                 <TouchableOpacity
                   style={{
                     backgroundColor: '#c4171d',
@@ -134,14 +168,14 @@ const OtherProducts = () => {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
-        </ScrollView>
-      </View>
-    </>
+          );
+        }}
+      />
+    </View>
   );
 };
 
-export default OtherProducts;
+export default OfferProducts;
 
 const styles = StyleSheet.create({
   screen: {

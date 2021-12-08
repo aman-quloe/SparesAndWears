@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  FlatList,
 } from 'react-native';
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
@@ -18,41 +19,68 @@ import sport2 from '../assets/images/sport2.jpg';
 import img from '../assets/images/homeimg.jpg';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
+import axios from 'axios';
 
-const Sports = () => {
-  return (
-    <>
-      <View style={styles.screen}>
-        <View style={styles.header}>
-          <Image
-            source={Logo}
-            style={{width: 110, height: 60, resizeMode: 'contain'}}
-          />
+const SportColored = () => {
+  const [data, setdata] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const fetchHandler = async () => {
+    await axios
+      .get('https://www.sparesandwears.com/AndroidCon/sports_colored.php')
+      .then(response => {
+        console.log(response.data.success);
+        if (response.data.success == 'true') {
+          setdata(response.data.data);
+          setLoading(false);
+        }
+      })
+      .catch(err => console.log(err.response.data));
+  };
+
+  useEffect(() => {
+    fetchHandler();
+    return () => {};
+  }, []);
+  return loading == true ? (
+    <Text>Loading...</Text>
+  ) : (
+    <View style={styles.screen}>
+      <View style={styles.header}>
+        <Image
+          source={Logo}
+          style={{width: 110, height: 60, resizeMode: 'contain'}}
+        />
+        <View
+          style={{
+            width: '50%',
+            height: 34,
+            borderWidth: 1,
+            borderRadius: 17,
+            flexDirection: 'row',
+          }}>
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="grey"
+            style={{width: '80%', padding: 3}}></TextInput>
           <View
             style={{
-              width: '50%',
-              height: 34,
-              borderWidth: 1,
-              borderRadius: 17,
-              flexDirection: 'row',
+              backgroundColor: '#c4171d',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '20%',
+              borderTopRightRadius: 17,
+              borderBottomRightRadius: 17,
             }}>
-            <TextInput placeholder="Search" style={{width: '80%'}}></TextInput>
-            <View
-              style={{
-                backgroundColor: '#c4171d',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '20%',
-                borderTopRightRadius: 17,
-                borderBottomRightRadius: 17,
-              }}>
-              <AntDesign name="search1" size={18} color="#ffff" />
-            </View>
+            <AntDesign name="search1" size={18} color="#ffff" />
           </View>
         </View>
-
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{alignItems: 'center'}}>
+      </View>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={data}
+        ListHeaderComponent={() => {
+          return (
             <View
               style={{
                 width: width,
@@ -105,52 +133,50 @@ const Sports = () => {
                 </View>
               </View>
             </View>
-
-            <Text
-              style={{
-                marginLeft: 20,
-                color: 'black',
-                fontSize: 20,
-                fontWeight: '400',
-                alignSelf: 'flex-start',
-              }}>
-              Categories
-            </Text>
-
-            <View style={styles.shadowboxlarge}>
-              <Image
-                source={sport1}
-                style={{
-                  width: '96%',
-                  height: 120,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={styles.producttitle}>Thermal Insulation</Text>
+          );
+        }}
+        renderItem={({item}) => {
+          return (
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.shadowboxlarge}>
+                <Image
+                  source={{
+                    uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
+                  }}
+                  style={{
+                    width: '96%',
+                    height: 120,
+                    resizeMode: 'contain',
+                  }}
+                />
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={styles.producttitle}>{item.Title}</Text>
+                  <Text style={{fontWeight: '600', fontSize: 14}}>
+                    {`Rs. ${item.MRP}`}
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: '#c4171d',
+                      height: 28,
+                      width: 100,
+                      backgroundColor: '#c4171d',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 3,
+                    }}>
+                    <Text style={{color: '#ffff'}}>ADD TO CART</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-            <View style={styles.shadowboxlarge}>
-              <Image
-                source={sport2}
-                style={{
-                  width: '96%',
-                  height: 120,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={styles.producttitle}>Acoustic Insulation</Text>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-      </View>
-    </>
+          );
+        }}
+      />
+    </View>
   );
 };
 
-export default Sports;
+export default SportColored;
 
 const styles = StyleSheet.create({
   screen: {
@@ -176,8 +202,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#dddddd',
     width: width / 2,
-
-    height: 170,
+    height: 220,
 
     borderRadius: 10,
     shadowColor: '#000',
@@ -196,8 +221,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   producttitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
     color: 'black',
+    textAlign: 'center',
   },
 });

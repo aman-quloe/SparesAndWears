@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,20 +14,20 @@ import Logo from '../assets/icons/logo.png';
 import Login from './Login';
 import product from '../assets/images/product.jpg';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Loading from '../assets/icons/Loading.mp4';
+import sport1 from '../assets/images/sport1.jpg';
+import sport2 from '../assets/images/sport2.jpg';
 import img from '../assets/images/homeimg.jpg';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
-
 import axios from 'axios';
 
-const NewProducts = () => {
+const SportGym = () => {
   const [data, setdata] = useState();
   const [loading, setLoading] = useState(true);
 
   const fetchHandler = async () => {
     await axios
-      .get('https://www.sparesandwears.com/AndroidCon/fetch_newProducts.php')
+      .get('https://www.sparesandwears.com/AndroidCon/sports_gym.php')
       .then(response => {
         console.log(response.data.success);
         if (response.data.success == 'true') {
@@ -42,9 +42,8 @@ const NewProducts = () => {
     fetchHandler();
     return () => {};
   }, []);
-
   return loading == true ? (
-    <Text>Loading....</Text>
+    <Text>Loading...</Text>
   ) : (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -77,7 +76,6 @@ const NewProducts = () => {
           </View>
         </View>
       </View>
-
       <FlatList
         showsVerticalScrollIndicator={false}
         data={data}
@@ -86,12 +84,12 @@ const NewProducts = () => {
             <View
               style={{
                 width: width,
-                height: 230,
+                height: 130,
                 backgroundColor: '#ffff',
               }}>
               <Text
                 style={{
-                  margin: 26,
+                  margin: 5,
                   color: '#c4171d',
                   fontSize: 22,
                   fontStyle: 'italic',
@@ -99,12 +97,12 @@ const NewProducts = () => {
                   justifyContent: 'center',
                   alignSelf: 'center',
                 }}>
-                New Products
+                Sports and Leisure Flooring
               </Text>
               <View
                 style={{
                   width: width,
-                  height: 90,
+                  height: 80,
                   backgroundColor: '#b2dbef',
                   justifyContent: 'space-evenly',
                   alignItems: 'center',
@@ -118,7 +116,9 @@ const NewProducts = () => {
                     backgroundColor: '#ffff',
                     flexDirection: 'row',
                   }}>
-                  <TextInput style={{width: '80%'}}></TextInput>
+                  <TextInput
+                    placeholder="Category"
+                    style={{width: '80%'}}></TextInput>
                   <View
                     style={{
                       backgroundColor: '#c4171d',
@@ -137,36 +137,36 @@ const NewProducts = () => {
         }}
         renderItem={({item}) => {
           return (
-            <View style={styles.shadowboxlarge}>
-              <Image
-                source={{
-                  uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
-                }}
-                style={{
-                  width: '40%',
-                  height: 120,
-                  resizeMode: 'contain',
-                }}
-              />
-
-              <View style={{width: '60%'}}>
-                <Text style={styles.producttitle}>{item.Title}</Text>
-
-                <Text style={{fontWeight: '600', fontSize: 16}}>
-                  {`Rs. ${item.MRP}`}
-                </Text>
-                <TouchableOpacity
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.shadowboxlarge}>
+                <Image
+                  source={{
+                    uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
+                  }}
                   style={{
-                    backgroundColor: '#c4171d',
-                    height: 28,
-                    width: 100,
-                    backgroundColor: '#c4171d',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 3,
-                  }}>
-                  <Text style={{color: '#ffff'}}>ADD TO CART</Text>
-                </TouchableOpacity>
+                    width: '96%',
+                    height: 120,
+                    resizeMode: 'contain',
+                  }}
+                />
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={styles.producttitle}>{item.Title}</Text>
+                  <Text style={{fontWeight: '600', fontSize: 14}}>
+                    {`Rs. ${item.MRP}`}
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: '#c4171d',
+                      height: 28,
+                      width: 100,
+                      backgroundColor: '#c4171d',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 3,
+                    }}>
+                    <Text style={{color: '#ffff'}}>ADD TO CART</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           );
@@ -176,7 +176,7 @@ const NewProducts = () => {
   );
 };
 
-export default NewProducts;
+export default SportGym;
 
 const styles = StyleSheet.create({
   screen: {
@@ -198,12 +198,12 @@ const styles = StyleSheet.create({
   },
 
   shadowboxlarge: {
+    margin: 15,
     padding: 10,
-    flexDirection: 'row',
-    width: width / 1.05,
-    margin: 5,
-    height: 150,
-    backgroundColor: '#ffff',
+    backgroundColor: '#dddddd',
+    width: width / 2,
+    height: 220,
+
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -221,8 +221,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   producttitle: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '600',
     color: 'black',
+    textAlign: 'center',
   },
 });

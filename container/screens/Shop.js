@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,17 +8,35 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Modal,
 } from 'react-native';
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
-import product from '../assets/images/product.jpg';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import automotive from '../assets/images/automotive.jpg';
+import ac from '../assets/images/ac.jpg';
+import sports from '../assets/images/sports.jpg';
+import buy from '../assets/images/buy.jpg';
+import wishlist from '../assets/images/wishlist.jpg';
+import newproducts from '../assets/images/new.jpg';
+import bnr from '../assets/images/bnr.jpg';
+import bnr2 from '../assets/images/bnr2.jpg';
 import img from '../assets/images/homeimg.jpg';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-const Shop = () => {
+const Shop = ({navigation}) => {
+  const [modal, setmodal] = useState(true);
+
+  const closeModal = () => {
+    setmodal(false);
+  };
+
+  useEffect(() => {
+    setmodal(true);
+  }, []);
+  
+
   return (
     <>
       <View style={styles.screen}>
@@ -29,184 +47,219 @@ const Shop = () => {
           />
           <View
             style={{
-              width: '50%',
-              height: 34,
-              borderWidth: 1,
-              borderRadius: 17,
+              width: '65%',
+              height: 20,
+              borderWidth: 1.6,
+              borderRadius: 10,
               flexDirection: 'row',
             }}>
-            <TextInput placeholder="Search" style={{width: '80%'}}></TextInput>
+            <TextInput style={{width: '90%'}}></TextInput>
             <View
               style={{
                 backgroundColor: '#c4171d',
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: '20%',
-                borderTopRightRadius: 17,
-                borderBottomRightRadius: 17,
+                width: '10%',
+                borderTopRightRadius: 10,
+                borderBottomRightRadius: 10,
               }}>
-              <AntDesign name="search1" size={18} color="#ffff" />
+              <AntDesign name="search1" size={10} color="#ffff" />
             </View>
           </View>
         </View>
+        <Modal transparent={true} visible={modal} animationType='slide' >
+          <View
+            style={{
+              width: width,
+              height: '93.9%',
+              backgroundColor: '#0074b2',
+              opacity: 0.7,
+            }}>
+            <TouchableOpacity onPress={closeModal}>
+              <AntDesign name="close" size={20} color="#ffff" />
+            </TouchableOpacity>
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+                height: '70%',
+                marginTop: 80,
+              }}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Automotive', {name: 'Automotive'})
+                }>
+                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                  Automotive
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('AcRefrigeration', {
+                    name: 'AcRefrigeration',
+                  })
+                }>
+                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                  Air Conditioning and Refigeration
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('SportsLeisure', {name: 'SportsLeisure'})
+                }>
+                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                  Sports, Leisure and Flooring
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                  Buy Again
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                  Wishlist
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                  New Offers
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{alignItems: 'center'}}>
-            <View
+            <Image
+              source={img}
               style={{
                 width: width,
-                height: 230,
-                backgroundColor: '#ffff',
-              }}>
-              <Text
-                style={{
-                  margin: 5,
-                  color: '#c4171d',
-                  fontSize: 30,
-                  fontStyle: 'italic',
-                  fontWeight: '700',
-                  justifyContent: 'center',
-                  alignSelf: 'center',
-                }}>
-                Automotive
-              </Text>
+                height: height / 4,
+                resizeMode: 'contain',
+              }}
+            />
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Automotive', {name: 'Automotive'})
+                }>
+                <View style={styles.shadowbox}>
+                  <Text style={styles.boxtext}>Automotive</Text>
+                  <Image
+                    source={automotive}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('AcRefrigeration', {
+                    name: 'AcRefrigeration',
+                  })
+                }>
+                <View style={styles.shadowbox}>
+                  <Text style={styles.boxtext}>AC and Refrigeration</Text>
+                  <Image
+                    source={ac}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('SportsLeisure', {name: 'SportsLeisure'})
+                }>
+                <View style={styles.shadowbox}>
+                  <Text style={styles.boxtext}>
+                    Sports and Leisure Flooring
+                  </Text>
+                  <Image
+                    source={sports}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <View style={styles.shadowbox}>
+                <Text style={styles.boxtext}>Buy Again</Text>
+                <Image
+                  source={buy}
+                  style={{
+                    width: '100%',
+                    height: '80%',
+                    resizeMode: 'contain',
+                  }}
+                />
+              </View>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <View style={styles.shadowbox}>
+                <Text style={styles.boxtext}>Wishlist</Text>
+                <Image
+                  source={wishlist}
+                  style={{
+                    width: '100%',
+                    height: '80%',
+                    resizeMode: 'contain',
+                  }}
+                />
+              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('NewProducts', {name: 'NewProducts'})
+                }>
+                <View style={styles.shadowbox}>
+                  <Text style={styles.boxtext}>New Products</Text>
+                  <Image
+                    source={newproducts}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.shadowboxlarge}>
+              <Text style={styles.boxtext}>Top Selling</Text>
               <View
-                style={{
-                  width: width,
-                  height: 170,
-                  backgroundColor: '#b2dbef',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    width: '70%',
-                    height: 34,
-                    borderWidth: 1,
-                    borderRadius: 17,
-                    backgroundColor: '#ffff',
-                    flexDirection: 'row',
-                  }}>
-                  <TextInput style={{width: '80%'}}></TextInput>
-                  <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{width: '50%'}}>
+                  <Image
+                    source={bnr}
                     style={{
-                      backgroundColor: '#c4171d',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '20%',
-                      borderTopRightRadius: 17,
-                      borderBottomRightRadius: 17,
-                    }}>
-                    <AntDesign name="caretdown" size={22} color="#ffff" />
-                  </View>
+                      width: '100%',
+                      height: '90%',
+                      resizeMode: 'contain',
+                    }}
+                  />
                 </View>
-                <View
-                  style={{
-                    width: '70%',
-                    height: 34,
-                    borderWidth: 1,
-                    borderRadius: 17,
-                    backgroundColor: '#ffff',
-                    flexDirection: 'row',
-                  }}>
-                  <TextInput style={{width: '80%'}}></TextInput>
-                  <View
+                <View style={{width: '50%'}}>
+                  <Image
+                    source={bnr2}
                     style={{
-                      backgroundColor: '#c4171d',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '20%',
-                      borderTopRightRadius: 17,
-                      borderBottomRightRadius: 17,
-                    }}>
-                    <AntDesign name="caretdown" size={22} color="#ffff" />
-                  </View>
+                      width: '100%',
+                      height: '90%',
+                      resizeMode: 'contain',
+                    }}
+                  />
                 </View>
-                <View
-                  style={{
-                    width: '70%',
-                    height: 34,
-                    borderWidth: 1,
-                    borderRadius: 17,
-                    backgroundColor: '#ffff',
-                    flexDirection: 'row',
-                  }}>
-                  <TextInput style={{width: '80%'}}></TextInput>
-                  <View
-                    style={{
-                      backgroundColor: '#c4171d',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '20%',
-                      borderTopRightRadius: 17,
-                      borderBottomRightRadius: 17,
-                    }}>
-                    <AntDesign name="caretdown" size={22} color="#ffff" />
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.shadowboxlarge}>
-              <Image
-                source={product}
-                style={{
-                  width: '40%',
-                  height: 120,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={{width: '60%'}}>
-                <Text style={styles.producttitle}>
-                  Scooter Foot Mat Epdm Rubber-Pleasure
-                </Text>
-                <Text style={{fontWeight: '600', color: 'black', fontSize: 16}}>
-                  Hero
-                </Text>
-                <Text style={{fontWeight: '600', fontSize: 16}}>Rs. 175.0</Text>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: '#c4171d',
-                    height: 28,
-                    width: 100,
-                    backgroundColor: '#c4171d',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 3,
-                  }}>
-                  <Text style={{color: '#ffff'}}>ADD TO CART</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.shadowboxlarge}>
-              <Image
-                source={product}
-                style={{
-                  width: '40%',
-                  height: 120,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={{width: '60%'}}>
-                <Text style={styles.producttitle}>
-                  Scooter Foot Mat Epdm Rubber-Pleasure
-                </Text>
-                <Text style={{fontWeight: '600', color: 'black', fontSize: 16}}>
-                  Hero
-                </Text>
-                <Text style={{fontWeight: '600', fontSize: 16}}>Rs. 175.0</Text>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: '#c4171d',
-                    height: 28,
-                    width: 100,
-                    backgroundColor: '#c4171d',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 3,
-                  }}>
-                  <Text style={{color: '#ffff'}}>ADD TO CART</Text>
-                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -224,7 +277,7 @@ const styles = StyleSheet.create({
     height: height,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#ffff',
+    backgroundColor: '#eef5fc',
   },
 
   header: {
@@ -236,13 +289,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-
+  shadowbox: {
+    width: width / 2.4,
+    margin: 10,
+    height: 120,
+    backgroundColor: '#ffff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
   shadowboxlarge: {
-    padding: 10,
-    flexDirection: 'row',
-    width: width / 1.05,
-    margin: 5,
-    height: 150,
+    width: width / 1.15,
+    margin: 10,
+    height: 120,
     backgroundColor: '#ffff',
     borderRadius: 10,
     shadowColor: '#000',
@@ -259,10 +324,5 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 12,
     fontWeight: '400',
-  },
-  producttitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: 'black',
   },
 });

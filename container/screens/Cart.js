@@ -35,7 +35,9 @@ const Cart = () => {
               borderRadius: 17,
               flexDirection: 'row',
             }}>
-            <TextInput placeholder="Search" style={{width: '80%'}}></TextInput>
+            <TextInput
+              placeholder="Search"
+              style={{width: '80%', padding: 3}}></TextInput>
             <View
               style={{
                 backgroundColor: '#c4171d',

@@ -90,9 +90,13 @@ const Login = ({navigation}) => {
         <View style={styles.container}>
           <TextInput
             placeholder="Email ID"
+            placeholderTextColor="grey"
             style={{
               borderWidth: 1,
-              height: 35,
+              height: 40,
+              color: 'black',
+              fontSize: 16,
+              padding: 2,
               marginHorizontal: '5%',
               borderRadius: 5,
             }}
@@ -100,9 +104,13 @@ const Login = ({navigation}) => {
             onChangeText={setusername}></TextInput>
           <TextInput
             placeholder="Password"
+            placeholderTextColor="grey"
             style={{
               borderWidth: 1,
-              height: 35,
+              height: 40,
+              color: 'black',
+              fontSize: 16,
+              padding: 2,
               marginHorizontal: '5%',
               borderRadius: 5,
             }}

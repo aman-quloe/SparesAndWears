@@ -94,10 +94,12 @@ const RetailerRegister = ({navigation}) => {
         <View style={styles.container}>
           <TextInput
             placeholder="Name"
+            placeholderTextColor="grey"
             style={{
               backgroundColor: '#ffff',
+              color: 'black',
               borderWidth: 1,
-              height: 35,
+              height: 40,
               marginVertical: '2%',
               marginHorizontal: '5%',
               borderRadius: 5,
@@ -106,11 +108,13 @@ const RetailerRegister = ({navigation}) => {
             onChangeText={setfullname}></TextInput>
           <TextInput
             placeholder="Mobile No."
+            placeholderTextColor="grey"
             style={{
+              color: 'black',
               marginVertical: '2%',
               backgroundColor: '#ffff',
               borderWidth: 1,
-              height: 35,
+              height: 40,
               marginHorizontal: '5%',
               borderRadius: 5,
             }}
@@ -118,11 +122,13 @@ const RetailerRegister = ({navigation}) => {
             onChangeText={setmobile}></TextInput>
           <TextInput
             placeholder="Email ID"
+            placeholderTextColor="grey"
             style={{
+              color: 'black',
               marginVertical: '2%',
               backgroundColor: '#ffff',
               borderWidth: 1,
-              height: 35,
+              height: 40,
               marginHorizontal: '5%',
               borderRadius: 5,
             }}
@@ -130,11 +136,13 @@ const RetailerRegister = ({navigation}) => {
             onChangeText={setusername}></TextInput>
           <TextInput
             placeholder="Password"
+            placeholderTextColor="grey"
             style={{
+              color: 'black',
               marginVertical: '2%',
               backgroundColor: '#ffff',
               borderWidth: 1,
-              height: 35,
+              height: 40,
               marginHorizontal: '5%',
               borderRadius: 5,
             }}
@@ -142,11 +150,13 @@ const RetailerRegister = ({navigation}) => {
             onChangeText={setpassword}></TextInput>
           <TextInput
             placeholder="Confirm Password"
+            placeholderTextColor="grey"
             style={{
+              color: 'black',
               marginVertical: '2%',
               backgroundColor: '#ffff',
               borderWidth: 1,
-              height: 35,
+              height: 40,
               marginHorizontal: '5%',
               borderRadius: 5,
             }}

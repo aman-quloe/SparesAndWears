@@ -26,15 +26,27 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 const Home = ({navigation}) => {
-  const [modal, setmodal] = useState(true);
-
-  const closeModal = () => {
-    setmodal(false);
-  };
-
   return (
     <>
       <View style={styles.screen}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('WholeSalerRegister', {
+              name: 'WholeSalerRegister',
+            })
+          }
+          style={{
+            width: width,
+            height: 25,
+            justifyContent: 'center',
+            backgroundColor: 'black',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: '#ffff', fontSize: 10}}>
+            Click here to create a WHOLESALER account and avail discounted
+            rates!
+          </Text>
+        </TouchableOpacity>
         <View style={styles.header}>
           <Image
             source={Logo}
@@ -48,7 +60,8 @@ const Home = ({navigation}) => {
               borderRadius: 10,
               flexDirection: 'row',
             }}>
-            <TextInput style={{width: '90%'}}></TextInput>
+            <TextInput
+              style={{width: '90%', padding: 1, fontSize: 12}}></TextInput>
             <View
               style={{
                 backgroundColor: '#c4171d',
@@ -62,103 +75,69 @@ const Home = ({navigation}) => {
             </View>
           </View>
         </View>
-        <Modal transparent={true} visible={modal}>
-          <View
-            style={{
-              width: width,
-              height: '93.9%',
-              backgroundColor: '#0074b2',
-              opacity: 0.7,
-            }}>
-            <TouchableOpacity onPress={closeModal}>
-              <AntDesign name="close" size={20} color="#ffff" />
-            </TouchableOpacity>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
-                height: '70%',
-                marginTop: 80,
-              }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Shop', {name: 'Shop'})}>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Automotive
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('Catagories', {name: 'Catagories'})
-                }>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Air Conditioning and Refigeration
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Sports', {name: 'Sports'})}>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Sports, Leisure and Flooring
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Buy Again
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Wishlist
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  New Offers
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{alignItems: 'center'}}>
             <Image
               source={img}
-              style={{width: width, height: 195, resizeMode: 'contain'}}
+              style={{
+                width: width,
+                height: height / 4,
+                resizeMode: 'contain',
+              }}
             />
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Shop', {name: 'Shop'})}>
+                onPress={() =>
+                  navigation.navigate('Automotive', {name: 'Automotive'})
+                }>
                 <View style={styles.shadowbox}>
                   <Text style={styles.boxtext}>Automotive</Text>
                   <Image
                     source={automotive}
-                    style={{width: 160, height: 96, resizeMode: 'contain'}}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
                   />
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('Catagories', {name: 'Catagories'})
+                  navigation.navigate('AcRefrigeration', {
+                    name: 'AcRefrigeration',
+                  })
                 }>
                 <View style={styles.shadowbox}>
                   <Text style={styles.boxtext}>AC and Refrigeration</Text>
                   <Image
                     source={ac}
-                    style={{width: 160, height: 96, resizeMode: 'contain'}}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
                   />
                 </View>
               </TouchableOpacity>
             </View>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Sports', {name: 'Sports'})}>
+                onPress={() =>
+                  navigation.navigate('SportsLeisure', {name: 'SportsLeisure'})
+                }>
                 <View style={styles.shadowbox}>
                   <Text style={styles.boxtext}>
                     Sports and Leisure Flooring
                   </Text>
                   <Image
                     source={sports}
-                    style={{width: 160, height: 96, resizeMode: 'contain'}}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
                   />
                 </View>
               </TouchableOpacity>
@@ -166,7 +145,11 @@ const Home = ({navigation}) => {
                 <Text style={styles.boxtext}>Buy Again</Text>
                 <Image
                   source={buy}
-                  style={{width: 160, height: 96, resizeMode: 'contain'}}
+                  style={{
+                    width: '100%',
+                    height: '80%',
+                    resizeMode: 'contain',
+                  }}
                 />
               </View>
             </View>
@@ -175,7 +158,11 @@ const Home = ({navigation}) => {
                 <Text style={styles.boxtext}>Wishlist</Text>
                 <Image
                   source={wishlist}
-                  style={{width: 160, height: 96, resizeMode: 'contain'}}
+                  style={{
+                    width: '100%',
+                    height: '80%',
+                    resizeMode: 'contain',
+                  }}
                 />
               </View>
               <TouchableOpacity
@@ -186,22 +173,39 @@ const Home = ({navigation}) => {
                   <Text style={styles.boxtext}>New Products</Text>
                   <Image
                     source={newproducts}
-                    style={{width: 160, height: 96, resizeMode: 'contain'}}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
                   />
                 </View>
               </TouchableOpacity>
             </View>
             <View style={styles.shadowboxlarge}>
               <Text style={styles.boxtext}>Top Selling</Text>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={bnr}
-                  style={{width: 160, height: 96, resizeMode: 'contain'}}
-                />
-                <Image
-                  source={bnr2}
-                  style={{width: 160, height: 96, resizeMode: 'contain'}}
-                />
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{width: '50%'}}>
+                  <Image
+                    source={bnr}
+                    style={{
+                      width: '100%',
+                      height: '90%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+                <View style={{width: '50%'}}>
+                  <Image
+                    source={bnr2}
+                    style={{
+                      width: '100%',
+                      height: '90%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
               </View>
             </View>
           </View>
@@ -234,7 +238,8 @@ const styles = StyleSheet.create({
   shadowbox: {
     width: width / 2.4,
     margin: 10,
-    height: 120,
+    height: 125,
+    alignItems: 'center',
     backgroundColor: '#ffff',
     borderRadius: 10,
     shadowColor: '#000',
