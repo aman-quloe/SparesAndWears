@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Modal,
 } from 'react-native';
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
@@ -26,19 +25,8 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 const Shop = ({navigation}) => {
-  const [modal, setmodal] = useState(true);
-
-  const closeModal = () => {
-    setmodal(false);
-  };
-
-  useEffect(() => {
-    setmodal(true);
-  }, []);
-  
-
   return (
-    <>
+    <View style={{height: height}}>
       <View style={styles.screen}>
         <View style={styles.header}>
           <Image
@@ -67,68 +55,6 @@ const Shop = ({navigation}) => {
             </View>
           </View>
         </View>
-        <Modal transparent={true} visible={modal} animationType='slide' >
-          <View
-            style={{
-              width: width,
-              height: '93.9%',
-              backgroundColor: '#0074b2',
-              opacity: 0.7,
-            }}>
-            <TouchableOpacity onPress={closeModal}>
-              <AntDesign name="close" size={20} color="#ffff" />
-            </TouchableOpacity>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
-                height: '70%',
-                marginTop: 80,
-              }}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('Automotive', {name: 'Automotive'})
-                }>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Automotive
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('AcRefrigeration', {
-                    name: 'AcRefrigeration',
-                  })
-                }>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Air Conditioning and Refigeration
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('SportsLeisure', {name: 'SportsLeisure'})
-                }>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Sports, Leisure and Flooring
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Buy Again
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Wishlist
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  New Offers
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{alignItems: 'center'}}>
@@ -179,7 +105,9 @@ const Shop = ({navigation}) => {
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('SportsLeisure', {name: 'SportsLeisure'})
+                  navigation.navigate('SportsandLeisure', {
+                    name: 'SportsandLeisure',
+                  })
                 }>
                 <View style={styles.shadowbox}>
                   <Text style={styles.boxtext}>
@@ -265,7 +193,76 @@ const Shop = ({navigation}) => {
           </View>
         </ScrollView>
       </View>
-    </>
+      <View
+        style={{
+          height: height,
+          opacity: 0.7,
+          position: 'absolute',
+          zIndex: 1,
+        }}>
+        <View
+          style={{
+            width: width,
+            height: '93.9%',
+            backgroundColor: '#0074b2',
+          }}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              height: '70%',
+              marginTop: 80,
+            }}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Automotive', {name: 'Automotive'})
+              }>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Automotive
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('AcRefrigeration', {
+                  name: 'AcRefrigeration',
+                })
+              }>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Air Conditioning and Refigeration
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('SportsandLeisure', {
+                  name: 'SportsandLeisure',
+                })
+              }>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Sports, Leisure and Flooring
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Buy Again
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Wishlist', {name: 'Wishlist'});
+              }}>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Wishlist
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                New Offers
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 };
 

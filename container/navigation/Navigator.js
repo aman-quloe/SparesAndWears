@@ -1,5 +1,5 @@
 import React from 'react';
-
+import SportsCategory from '../screens/SportsCategory';
 import Login from '../screens/Login';
 import RetailerRegister from '../screens/RetailerRegister';
 import Automotive from '../screens/Automotive';
@@ -10,7 +10,6 @@ import AutomotiveThreewheeler from '../screens/AutomotiveThreewheeler';
 import AutomotiveHcv from '../screens/AutomotiveHcv';
 import AutomotiveAccessories from '../screens/AutomotiveAccessories';
 import SportsLeisure from '../screens/SportsLeisure';
-import SportYoga from '../screens/SportYoga';
 import SportDoor from '../screens/SportDoor';
 import SportGym from '../screens/SportGym';
 import SportColored from '../screens/SportColored';
@@ -20,8 +19,10 @@ import AcThermal from '../screens/AcThermal';
 import AcTapes from '../screens/AcTapes';
 import Home from '../screens/Home';
 import Shop from '../screens/Shop';
+import ProductDetail from '../screens/ProductDetail';
 import {NavigationContainer} from '@react-navigation/native';
-
+import Wishlist from '../screens/Wishlist';
+import SportsandLeisure from '../screens/SportsandLeisue';
 import NewProducts from '../screens/NewProducts';
 
 import Orders from '../screens/Orders';
@@ -57,6 +58,7 @@ const Navigator = () => {
           name="RetailerRegister"
           component={RetailerRegister}
         />
+
         <Stack.Screen
           options={{headerShown: false}}
           name="AutomotivePc"
@@ -66,6 +68,11 @@ const Navigator = () => {
           options={{headerShown: false}}
           name="Automotive"
           component={Automotive}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Wishlist"
+          component={Wishlist}
         />
         <Stack.Screen
           options={{headerShown: false}}
@@ -118,13 +125,18 @@ const Navigator = () => {
         />
         <Stack.Screen
           options={{headerShown: false}}
+          name="SportsCategory"
+          component={SportsCategory}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
           name="SportsLeisure"
           component={SportsLeisure}
         />
         <Stack.Screen
           options={{headerShown: false}}
-          name="SportYoga"
-          component={SportYoga}
+          name="SportsandLeisure"
+          component={SportsandLeisure}
         />
 
         <Stack.Screen
@@ -146,6 +158,11 @@ const Navigator = () => {
           options={{headerShown: false}}
           name="NewProducts"
           component={NewProducts}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ProductDetail"
+          component={ProductDetail}
         />
         <Stack.Screen
           options={{headerShown: false}}

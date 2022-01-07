@@ -14,6 +14,7 @@ import Login from './Login';
 import product from '../assets/images/product.jpg';
 import cardred from '../assets/images/giftcoupon.jpg';
 import cardblue from '../assets/images/giftcoupon2.jpg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import img from '../assets/images/homeimg.jpg';
@@ -187,6 +188,16 @@ const styles = StyleSheet.create({
   producttitle: {
     fontSize: 18,
     fontWeight: '600',
+    color: 'black',
+  },
+  productcompany: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
+  },
+  productmodel: {
+    fontSize: 16,
+    fontWeight: '500',
     color: 'black',
   },
 });

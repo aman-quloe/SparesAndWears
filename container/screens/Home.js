@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import automotive from '../assets/images/automotive.jpg';
 import ac from '../assets/images/ac.jpg';
@@ -30,6 +31,7 @@ const Home = ({navigation}) => {
     <>
       <View style={styles.screen}>
         <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() =>
             navigation.navigate('WholeSalerRegister', {
               name: 'WholeSalerRegister',
@@ -88,6 +90,7 @@ const Home = ({navigation}) => {
             />
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() =>
                   navigation.navigate('Automotive', {name: 'Automotive'})
                 }>
@@ -104,6 +107,7 @@ const Home = ({navigation}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() =>
                   navigation.navigate('AcRefrigeration', {
                     name: 'AcRefrigeration',
@@ -124,9 +128,8 @@ const Home = ({navigation}) => {
             </View>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('SportsLeisure', {name: 'SportsLeisure'})
-                }>
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('SportsandLeisure')}>
                 <View style={styles.shadowbox}>
                   <Text style={styles.boxtext}>
                     Sports and Leisure Flooring
@@ -154,18 +157,25 @@ const Home = ({navigation}) => {
               </View>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <View style={styles.shadowbox}>
-                <Text style={styles.boxtext}>Wishlist</Text>
-                <Image
-                  source={wishlist}
-                  style={{
-                    width: '100%',
-                    height: '80%',
-                    resizeMode: 'contain',
-                  }}
-                />
-              </View>
               <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() =>
+                  navigation.navigate('Wishlist', {name: 'Wishlist'})
+                }>
+                <View style={styles.shadowbox}>
+                  <Text style={styles.boxtext}>Wishlist</Text>
+                  <Image
+                    source={wishlist}
+                    style={{
+                      width: '100%',
+                      height: '80%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() =>
                   navigation.navigate('NewProducts', {name: 'NewProducts'})
                 }>

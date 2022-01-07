@@ -27,14 +27,14 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import axios from 'axios';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
-const SportDoor = ({navigation}) => {
+const SportsandLeisure = ({navigation}) => {
   const [data, setdata] = useState();
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('door');
+  const [value, setValue] = useState();
   const [items, setItems] = useState([
     {label: 'Yoga', value: 'yoga'},
     {label: 'Door', value: 'door'},
@@ -44,7 +44,7 @@ const SportDoor = ({navigation}) => {
 
   const [zone, setZone] = useState();
   const [uname, setUname] = useState();
-  const [itemValue, setItemValue] = useState(0);
+  const [itemValue, setItemValue] = useState(1);
   const [total, settotal] = useState(0);
   // const [loading, setLoading] = useState(true);
 
@@ -88,17 +88,39 @@ const SportDoor = ({navigation}) => {
   };
 
   const fetchYogaHandler = async () => {
-    await axios
-      .get('https://www.sparesandwears.com/AndroidCon/sports_yoga.php')
-      .then(response => {
-        console.log(response.data);
-        if (response.data.success == 'true') {
-          setdata(response.data.data);
+    try {
+      const value = await AsyncStorage.getItem('username');
+      if (value !== null) {
+        console.log(value);
+        setUname(value);
+        const loginFormData = new FormData();
+        loginFormData.append('username', value);
 
-          // setLoading(false);
+        let response = await axios({
+          method: 'post',
+          url: 'https://www.sparesandwears.com/AndroidCon/sports_yoga.php',
+          data: loginFormData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          } /** headers is given to give credential in formdata */,
+        });
+
+        let userzone = '';
+
+        console.log(response.data.success);
+        if (response.data.success == 'true') {
+          setZone(response.data.zone);
+          setdata(response.data.data);
+          console.log(response.data.zone);
+          setLoading(false);
+          userzone = response.data.zone;
+
+          setZone(userzone);
         }
-      })
-      .catch(err => console.log(err.response.data));
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   const fetchDoorHandler = async () => {
@@ -138,35 +160,81 @@ const SportDoor = ({navigation}) => {
   };
 
   const fetchGymHandler = async () => {
-    await axios
-      .get('https://www.sparesandwears.com/AndroidCon/sports_gym.php')
-      .then(response => {
+    try {
+      const value = await AsyncStorage.getItem('username');
+      if (value !== null) {
+        console.log(value);
+        setUname(value);
+        const loginFormData = new FormData();
+        loginFormData.append('username', value);
+
+        let response = await axios({
+          method: 'post',
+          url: 'https://www.sparesandwears.com/AndroidCon/sports_gym.php',
+          data: loginFormData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          } /** headers is given to give credential in formdata */,
+        });
+
+        let userzone = '';
+
         console.log(response.data.success);
         if (response.data.success == 'true') {
+          setZone(response.data.zone);
           setdata(response.data.data);
-          // setLoading(false);
+          console.log(response.data.zone);
+          setLoading(false);
+          userzone = response.data.zone;
+
+          setZone(userzone);
         }
-      })
-      .catch(err => console.log(err.response.data));
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   const fetchColoredHandler = async () => {
-    await axios
-      .get('https://www.sparesandwears.com/AndroidCon/sports_colored.php')
-      .then(response => {
+    try {
+      const value = await AsyncStorage.getItem('username');
+      if (value !== null) {
+        console.log(value);
+        setUname(value);
+        const loginFormData = new FormData();
+        loginFormData.append('username', value);
+
+        let response = await axios({
+          method: 'post',
+          url: 'https://www.sparesandwears.com/AndroidCon/sports_colored.php',
+          data: loginFormData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          } /** headers is given to give credential in formdata */,
+        });
+
+        let userzone = '';
+
         console.log(response.data.success);
         if (response.data.success == 'true') {
+          setZone(response.data.zone);
           setdata(response.data.data);
-          // setLoading(false);
+          console.log(response.data.zone);
+          setLoading(false);
+          userzone = response.data.zone;
+
+          setZone(userzone);
         }
-      })
-      .catch(err => console.log(err.response.data));
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
-  useEffect(() => {
-    fetchDoorHandler();
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   fetchYogaHandler();
+  //   return () => {};
+  // }, []);
 
   // return loading == true ? (
   //   <Text>Loading....</Text>
@@ -207,7 +275,7 @@ const SportDoor = ({navigation}) => {
         style={{
           width: width,
           backgroundColor: 'red',
-          height: 260,
+          height: open ? 260 : 150,
           backgroundColor: '#ffff',
         }}>
         <Text
@@ -240,6 +308,23 @@ const SportDoor = ({navigation}) => {
               flexDirection: 'row',
             }}>
             <DropDownPicker
+              dropDownDirection="BOTTOM"
+              // style={{
+              //   width: 170,
+              //   borderColor: 'gray',
+              //   borderWidth: 0.5,
+              //   height: 40,
+              //   alignSelf: 'center',
+              //   position: 'absolute',
+              // }}
+              // dropDownContainerStyle={{
+              //   width: 150,
+              //   borderColor: 'gray',
+              //   borderWidth: 0.5,
+              //   height: 150,
+              //   alignSelf: 'center',
+              // }}
+              // dropDownDirection="BOTTOM"
               placeholder="Select Category"
               style={{
                 borderColor: 'gray',
@@ -247,10 +332,11 @@ const SportDoor = ({navigation}) => {
                 borderWidth: 1,
                 height: 34,
                 alignSelf: 'center',
+                position: 'absolute',
               }}
               dropDownContainerStyle={{
-                overflow: 'visible',
                 borderColor: 'black',
+                position: 'absolute',
                 borderWidth: 1,
                 borderRadius: 17,
                 backgroundColor: 'white',
@@ -297,9 +383,136 @@ const SportDoor = ({navigation}) => {
           </View>
         </View>
       </View>
-
       <FlatList
         data={data}
+        ListEmptyComponent={
+          <ScrollView>
+            <View>
+              <View>
+                <Text
+                  style={{
+                    marginLeft: 20,
+                    color: 'black',
+                    fontSize: 20,
+                    fontWeight: '400',
+                    alignSelf: 'flex-start',
+                  }}>
+                  Categories
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={fetchYogaHandler}>
+                    <View style={styles.category}>
+                      <Image
+                        source={{
+                          uri: 'https://www.sparesandwears.com/images/Yoga%20Mat.jpg',
+                        }}
+                        style={{
+                          width: '100%',
+                          height: 120,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Text style={styles.producttitle}>Yoga Mats</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={fetchDoorHandler}>
+                    <View style={styles.category}>
+                      <Image
+                        source={{
+                          uri: 'https://www.sparesandwears.com/images/Door%20Mat.jpg',
+                        }}
+                        style={{
+                          width: '100%',
+                          height: 120,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Text style={styles.producttitle}>Door Mats</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={fetchGymHandler}>
+                    <View style={styles.category}>
+                      <Image
+                        source={{
+                          uri: 'https://www.sparesandwears.com/images/Gym%20Mat%20or%20Rubber%20Tiles.jpg',
+                        }}
+                        style={{
+                          width: '100%',
+                          height: 120,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Text style={styles.producttitle}>Gym Mats</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={fetchColoredHandler}>
+                    <View style={styles.category}>
+                      <Image
+                        // source={{
+                        //   uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
+                        // }}
+                        source={{
+                          uri: 'https://www.sparesandwears.com/images/EPDM%20Colored%20Granules.jpg',
+                        }}
+                        style={{
+                          width: '100%',
+                          height: 120,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Text style={styles.producttitle}>
+                          Colored Granules
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        }
         // ListHeaderComponent={() => {
         //   return (
         //     <View>
@@ -452,100 +665,126 @@ const SportDoor = ({navigation}) => {
               : item.MRP
           }`;
 
-          const increment = () => {
-            setItemValue(itemValue + 1);
-            settotal(total + 1);
+          const increment = prodId => {
+            let filteredData = data.filter((val, i) => {
+              if (val.srno == prodId) {
+                setItemValue(itemValue + 1);
+              }
+            });
           };
 
           const decrement = () => {
-            setItemValue(itemValue - 1);
-            settotal(total - 1);
+            if (itemValue > 1) {
+              setItemValue(itemValue - 1);
+            } else {
+              setItemValue(1);
+            }
           };
           return (
-            <TouchableOpacity
-              style={styles.shadowboxlarge}
-              activeOpacity={0.7}
-              onPress={() =>
-                navigation.navigate('ProductDetail', {
-                  productId: item.srno,
-                  productPrice: productPrice,
-                  uname: uname,
-                })
-              }>
-              <Image
-                source={{
-                  uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
-                }}
+            <View style={styles.shadowboxlarge}>
+              <TouchableOpacity
                 style={{
-                  width: '40%',
-                  height: 120,
-                  resizeMode: 'contain',
+                  justifyContent: 'flex-end',
+                  alignSelf: 'flex-end',
                 }}
-              />
-
-              <View style={{width: '60%'}}>
-                <Text style={styles.producttitle}>{item.Title}</Text>
-
-                <Text style={{fontWeight: '600', fontSize: 16}}>
-                  {productPrice}
-                </Text>
-                <View
+                onPress={() => {
+                  addToWishlist(item.srno);
+                  showMessage({
+                    message: 'Product added to wishlist successfully !',
+                    type: 'info',
+                  });
+                }}>
+                <AntDesign
+                  name="heart"
+                  size={22}
+                  backgroundColor="green"
+                  color={'grey'}
+                  style={{}}
+                />
+              </TouchableOpacity>
+              <View style={styles.container}>
+                <TouchableOpacity
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
+                    width: '40%',
+                    alignItems: 'center',
+                  }}
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    navigation.navigate('ProductDetail', {
+                      productId: item.srno,
+                      productPrice: productPrice,
+                      uname: uname,
+                    })
+                  }>
+                  <Image
+                    source={{
+                      uri: `https://sparesandwears.com/admin-panel/product_images/${item.ImageName}`,
+                    }}
+                    style={{
+                      width: '100%',
+                      height: '90%',
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </TouchableOpacity>
+
+                <View style={{width: '60%'}}>
+                  <Text style={styles.producttitle}>{item.Title}</Text>
+
+                  <Text style={{fontWeight: '600', fontSize: 16}}>
+                    {productPrice}
+                  </Text>
                   <View
                     style={{
                       flexDirection: 'row',
-                      backgroundColor: '#dddddd',
-                      borderRadius: 5,
-                      width: '30%',
-                      alignItems: 'center',
-                      justifyContent: 'space-evenly',
+                      justifyContent: 'space-between',
                     }}>
-                    <TouchableOpacity activeOpacity={0.8} onPress={decrement}>
-                      <Ionicons name="remove" size={18} color="black" />
-                    </TouchableOpacity>
-                    <Text style={{fontWeight: '500', color: 'black'}}>
-                      {itemValue}
-                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        backgroundColor: '#dddddd',
+                        borderRadius: 5,
+                        width: '30%',
+                        alignItems: 'center',
+                        justifyContent: 'space-evenly',
+                      }}>
+                      <TouchableOpacity onPress={decrement}>
+                        <Ionicons name="remove" size={18} color="black" />
+                      </TouchableOpacity>
+                      <Text style={{fontWeight: '500', color: 'black'}}>
+                        {itemValue}
+                      </Text>
 
-                    <TouchableOpacity activeOpacity={0.8} onPress={increment}>
-                      <Ionicons name="add" size={18} color="black" />
+                      <TouchableOpacity onPress={() => increment(item.srno)}>
+                        <Ionicons name="add" size={18} color="black" />
+                      </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => {
+                        addToCartHandler(item.srno);
+                        showMessage({
+                          message: 'Product added to cart successfully !',
+                          type: 'info',
+                          backgroundColor: '#c4171d',
+                        });
+                      }}
+                      activeOpacity={0.8}
+                      style={{
+                        backgroundColor: '#c4171d',
+                        height: 28,
+
+                        width: 100,
+                        backgroundColor: '#c4171d',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 3,
+                      }}>
+                      <Text style={{color: '#ffff'}}>ADD TO CART</Text>
                     </TouchableOpacity>
                   </View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      addToCartHandler(item.srno);
-                    }}
-                    activeOpacity={0.8}
-                    style={{
-                      backgroundColor: '#c4171d',
-                      height: 28,
-
-                      width: 100,
-                      backgroundColor: '#c4171d',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 3,
-                    }}>
-                    <Text style={{color: '#ffff'}}>ADD TO CART</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      addToWishlist(item.srno);
-                    }}>
-                    <AntDesign
-                      name="heart"
-                      size={22}
-                      backgroundColor="green"
-                      color={'grey'}
-                      style={{}}
-                    />
-                  </TouchableOpacity>
                 </View>
               </View>
-            </TouchableOpacity>
+            </View>
           );
         }}
       />
@@ -553,7 +792,7 @@ const SportDoor = ({navigation}) => {
   );
 };
 
-export default SportDoor;
+export default SportsandLeisure;
 
 const styles = StyleSheet.create({
   screen: {
@@ -573,24 +812,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  shadowboxlarge: {
-    alignSelf: 'center',
-    margin: 10,
-    padding: 10,
-    backgroundColor: '#dddddd',
-    width: width / 2.35,
-    height: 200,
-
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
   boxtext: {
     alignSelf: 'center',
     color: 'black',
@@ -630,12 +851,29 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
   },
+  category: {
+    alignSelf: 'center',
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#dddddd',
+    width: width / 2.35,
+    height: 200,
+
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
   shadowboxlarge: {
     padding: 10,
-    flexDirection: 'row',
     width: width / 1.05,
     margin: 5,
-    height: 150,
+    height: 180,
     backgroundColor: '#ffff',
     borderRadius: 10,
     shadowColor: '#000',
@@ -647,6 +885,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
   },
+  container: {
+    flexDirection: 'row',
+  },
+
   boxtext: {
     alignSelf: 'center',
     color: 'black',

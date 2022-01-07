@@ -276,12 +276,14 @@ const WholeSalerRegister = () => {
                 borderRadius: 5,
               }}></TextInput>
             <TouchableOpacity
+              activeOpacity={0.8}
               style={{
                 alignSelf: 'flex-end',
                 marginHorizontal: '6%',
               }}></TouchableOpacity>
 
             <TouchableOpacity
+              activeOpacity={0.8}
               onPress={registerHandler}
               style={{
                 marginHorizontal: '3%',

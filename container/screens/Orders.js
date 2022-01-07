@@ -12,6 +12,7 @@ import {
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
 import product from '../assets/images/product.jpg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import img from '../assets/images/homeimg.jpg';
@@ -116,6 +117,7 @@ const Orders = () => {
                 </Text>
                 <Text style={{fontWeight: '600', fontSize: 16}}>Rs.175.0</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={{
                     backgroundColor: '#c4171d',
                     height: 28,
@@ -147,6 +149,7 @@ const Orders = () => {
                 </Text>
                 <Text style={{fontWeight: '600', fontSize: 16}}>Rs.175.0</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={{
                     backgroundColor: '#c4171d',
                     height: 28,
@@ -178,6 +181,7 @@ const Orders = () => {
                 </Text>
                 <Text style={{fontWeight: '600', fontSize: 16}}>Rs.175.0</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={{
                     backgroundColor: '#c4171d',
                     height: 28,
@@ -245,6 +249,16 @@ const styles = StyleSheet.create({
   producttitle: {
     fontSize: 18,
     fontWeight: '600',
+    color: 'black',
+  },
+  productcompany: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
+  },
+  productmodel: {
+    fontSize: 16,
+    fontWeight: '500',
     color: 'black',
   },
 });

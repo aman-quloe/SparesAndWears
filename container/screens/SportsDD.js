@@ -14,6 +14,7 @@ import {
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
 import product from '../assets/images/product.jpg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import sport1 from '../assets/images/sport1.jpg';
 import sport2 from '../assets/images/sport2.jpg';
@@ -22,14 +23,21 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 import axios from 'axios';
 
-import {Picker} from '@react-native-picker/picker';
-import ModalFilterPicker from 'react-native-modal-filter-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const SportYoga = () => {
   const [data, setdata] = useState('');
   // const [loading, setLoading] = useState(true);
   const [category, setcategory] = useState();
-  const [dropdownvalue, setdropdownvalue] = useState();
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const [items, setItems] = useState([
+    {label: 'Yoga', value: 'yoga'},
+    {label: 'Door', value: 'door'},
+    {label: 'Gym', value: 'gym'},
+    {label: 'Colored', value: 'colored'},
+  ]);
 
   const fetchYogaHandler = async () => {
     await axios
@@ -38,6 +46,7 @@ const SportYoga = () => {
         console.log(response.data.success);
         if (response.data.success == 'true') {
           setdata(response.data.data);
+          console.log(response.data.data);
           // setLoading(false);
         }
       })
@@ -51,6 +60,7 @@ const SportYoga = () => {
         console.log(response.data.success);
         if (response.data.success == 'true') {
           setdata(response.data.data);
+          console.log(response.data.data);
           // setLoading(false);
         }
       })
@@ -64,6 +74,7 @@ const SportYoga = () => {
         console.log(response.data.success);
         if (response.data.success == 'true') {
           setdata(response.data.data);
+          console.log(response.data.data);
           // setLoading(false);
         }
       })
@@ -77,6 +88,7 @@ const SportYoga = () => {
         console.log(response.data.success);
         if (response.data.success == 'true') {
           setdata(response.data.data);
+          console.log(response.data.data);
           // setLoading(false);
         }
       })
@@ -107,7 +119,6 @@ const SportYoga = () => {
           }}>
           <TextInput
             placeholder="Search"
-          
             placeholderTextColor="grey"
             style={{width: '80%', padding: 3}}></TextInput>
           <View
@@ -140,6 +151,38 @@ const SportYoga = () => {
                 title="colored mat"
                 onPress={fetchColoredHandler}></Button> */}
 
+              <DropDownPicker
+                style={{
+                  width: 170,
+                  borderColor: 'gray',
+                  borderWidth: 0.5,
+                  height: 40,
+                  alignSelf: 'center',
+                  position: 'absolute',
+                }}
+                dropDownContainerStyle={{
+                  width: 150,
+                  borderColor: 'gray',
+                  borderWidth: 0.5,
+                  height: 150,
+                  alignSelf: 'center',
+                }}
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                onChangeValue={
+                  value == 'yoga'
+                    ? fetchYogaHandler
+                    : value == 'colored'
+                    ? fetchColoredHandler
+                    : value == 'door'
+                    ? fetchDoorHandler
+                    : fetchGymHandler
+                }
+                // setItems={setItems}
+              />
               <Text
                 style={{
                   margin: 5,
@@ -160,7 +203,7 @@ const SportYoga = () => {
                   justifyContent: 'space-evenly',
                   alignItems: 'center',
                 }}>
-                <Picker
+                {/* <Picker
                   selectedValue={category}
                   onValueChange={itemValue => setcategory(itemValue)}
                   style={{
@@ -183,7 +226,7 @@ const SportYoga = () => {
                     value={fetchColoredHandler}
                   />
 
-                  {/* <View
+                  <View
                     style={{
                       backgroundColor: '#c4171d',
                       justifyContent: 'center',
@@ -193,13 +236,34 @@ const SportYoga = () => {
                       borderBottomRightRadius: 17,
                     }}>
                     <AntDesign name="caretdown" size={22} color="#ffff" />
-                  </View> */}
-                </Picker>
+                  </View>
+                </Picker> */}
               </View>
             </View>
           );
         }}
         renderItem={({item}) => {
+          const productPrice = `Rs. ${
+            zone == 'north'
+              ? item.north_price
+              : zone == 'south'
+              ? item.south_price
+              : zone == 'east'
+              ? item.east_price
+              : zone == 'west'
+              ? item.west_price
+              : item.MRP
+          }`;
+
+          const increment = () => {
+            setvalue(value + 1);
+            settotal(total + 1);
+          };
+
+          const decrement = () => {
+            setvalue(value - 1);
+            settotal(total - 1);
+          };
           return (
             <View style={{alignItems: 'center'}}>
               <View style={styles.shadowboxlarge}>
@@ -215,10 +279,13 @@ const SportYoga = () => {
                 />
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Text style={styles.producttitle}>{item.Title}</Text>
+                  <Text style={styles.productcompany}>{item.Company}</Text>
+                  <Text style={styles.productmodel}>{item.Vehicle_Model}</Text>
                   <Text style={{fontWeight: '600', fontSize: 14}}>
                     {`Rs. ${item.MRP}`}
                   </Text>
                   <TouchableOpacity
+                    activeOpacity={0.8}
                     style={{
                       backgroundColor: '#c4171d',
                       height: 28,

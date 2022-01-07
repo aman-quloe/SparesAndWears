@@ -26,16 +26,6 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 const UserPage = ({navigation}) => {
-  const [modal, setmodal] = useState(true);
-
-  const closeModal = () => {
-    setmodal(false);
-  };
-
-  useEffect(() => {
-    setmodal(true);
-  }, []);
-
   return (
     <>
       <View style={styles.screen}>
@@ -66,54 +56,6 @@ const UserPage = ({navigation}) => {
             </View>
           </View>
         </View>
-        <Modal transparent={true} visible={modal}>
-          <View
-            style={{
-              width: width,
-              height: '93.9%',
-              backgroundColor: '#0074b2',
-              opacity: 0.7,
-            }}>
-            <TouchableOpacity onPress={closeModal}>
-              <AntDesign name="close" size={20} color="#ffff" />
-            </TouchableOpacity>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
-                height: '70%',
-                marginTop: 80,
-              }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Orders', {name: 'Orders'})}>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Your Orders
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('Welcome', {name: 'Welcome'})
-                }>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Your Account
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('GiftCard', {name: 'GiftCard'})
-                }>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Gift Coupons
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
-                  Sign In
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{alignItems: 'center'}}>
@@ -249,6 +191,54 @@ const UserPage = ({navigation}) => {
             </View>
           </View>
         </ScrollView>
+      </View>
+      <View
+        style={{
+          height: height,
+          opacity: 0.7,
+          position: 'absolute',
+          zIndex: 1,
+        }}>
+        <View
+          style={{
+            width: width,
+            height: '93.9%',
+            backgroundColor: '#0074b2',
+          }}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              height: '70%',
+              marginTop: 80,
+            }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Orders', {name: 'Orders'})}>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Your Orders
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Welcome', {name: 'Welcome'})}>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Your Account
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('GiftCard', {name: 'GiftCard'})
+              }>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Gift Coupons
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={{color: '#ffff', fontWeight: '800', fontSize: 18}}>
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </>
   );

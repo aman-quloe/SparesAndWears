@@ -12,10 +12,10 @@ import {
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
 import product from '../assets/images/product.jpg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import img from '../assets/images/homeimg.jpg';
 import {importSpecifier} from '@babel/types';
 
@@ -61,6 +61,7 @@ const Welcome = () => {
               }}>
               <Text style={{fontWeight: '500'}}>Your Name</Text>
               <TouchableOpacity
+                activeOpacity={0.8}
                 style={{
                   width: 45,
                   height: 24,
@@ -83,6 +84,7 @@ const Welcome = () => {
               }}>
               <Text style={{fontWeight: '500'}}>email@mail.com</Text>
               <TouchableOpacity
+                activeOpacity={0.8}
                 style={{
                   width: 45,
                   height: 24,
@@ -105,6 +107,7 @@ const Welcome = () => {
               }}>
               <Text style={{fontWeight: '500'}}>+91-0000000000</Text>
               <TouchableOpacity
+                activeOpacity={0.8}
                 style={{
                   width: 45,
                   height: 24,
@@ -118,6 +121,7 @@ const Welcome = () => {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
+              activeOpacity={0.8}
               style={{
                 width: 160,
                 height: 24,
@@ -225,16 +229,16 @@ const Welcome = () => {
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
-              <TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
                 <AntDesign name="googleplus" size={32} color="#ffff" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
                 <AntDesign name="twitter" size={32} color="#ffff" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
                 <AntDesign name="instagram" size={32} color="#ffff" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
                 <Entypo name="facebook-with-circle" size={32} color="#ffff" />
               </TouchableOpacity>
             </View>
@@ -306,6 +310,16 @@ const styles = StyleSheet.create({
   producttitle: {
     fontSize: 18,
     fontWeight: '600',
+    color: 'black',
+  },
+  productcompany: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
+  },
+  productmodel: {
+    fontSize: 16,
+    fontWeight: '500',
     color: 'black',
   },
   footertext: {

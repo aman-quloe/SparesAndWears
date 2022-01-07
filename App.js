@@ -13,25 +13,18 @@ import OfferProducts from './container/screens/OfferProducts';
 import Orders from './container/screens/Orders';
 import Welcome from './container/screens/Welcome';
 import Navigator from './container/navigation/Navigator';
-import SportYoga from './container/screens/SportYoga';
+
 import SportGym from './container/screens/SportGym';
 import SportDoor from './container/screens/SportDoor';
 import SportsLeisure from './container/screens/SportsLeisure';
-import SportsDD from './container/screens/SportsDD'
+import SportsDD from './container/screens/SportsDD';
 import SportColored from './container/screens/SportColored';
 import Automotive from './container/screens/Automotive';
 import Shop from './container/screens/Shop';
+import ProductDetail from './container/screens/ProductDetail';
+import AutomotiveTwowheeler from './container/screens/AutomotiveTwowheeler';
 // import AutomotivePc from './container/screens/AutomotivePc';
-
-import {createStore, combineReducers} from 'redux';
-import {Provider} from 'react-redux';
-import cartReducer from './store/reducers/cartReducer';
-
-const rootReducer = combineReducers({
-  products: cartReducer,
-});
-
-const store = createStore(rootReducer);
+import FlashMessage from 'react-native-flash-message';
 
 const App = () => {
   return (
@@ -40,9 +33,10 @@ const App = () => {
       {/* <Provider store={store}>
         <Navigator />
       </Provider> */}
-      <Navigator/>
+      <Navigator />
+      {/* <ProductDetail /> */}
       {/* <Shop/> */}
-      {/* <SportsDD/> */}
+      {/* <SportsDD /> */}
       {/* <Home /> */}
       {/* <BottomTabNavigator /> */}
       {/* <Categories /> */}
@@ -52,6 +46,7 @@ const App = () => {
       {/* <OfferProducts /> */}
       {/* <Orders /> */}
       {/* <Welcome /> */}
+      {/* <AutomotiveTwowheeler /> */}
       {/* <RetailerRegister /> */}
       {/* <WholeSalerRegister /> */}
       {/* <Login /> */}
@@ -62,6 +57,7 @@ const App = () => {
       {/* <AutomotivePc /> */}
       {/* <Automotive /> */}
       {/* <SportsLeisure /> */}
+      <FlashMessage position="top" />
     </>
   );
 };

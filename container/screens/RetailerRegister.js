@@ -164,6 +164,7 @@ const RetailerRegister = ({navigation}) => {
             onChangeText={setconfirmpassword}></TextInput>
 
           <TouchableOpacity
+            activeOpacity={0.8}
             // onPress={() => navigation.navigate('Login', {name: 'Login'})}
             onPress={registerHandler}
             style={{

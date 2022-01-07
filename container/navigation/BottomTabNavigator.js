@@ -7,9 +7,10 @@ import Shop from '../screens/Shop';
 import Cart from '../screens/Cart';
 import Login from '../screens/Login';
 import Orders from '../screens/Orders';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import UserPage from '../screens/UserPage';
 
 const Tab = createBottomTabNavigator();

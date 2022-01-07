@@ -13,6 +13,7 @@ import {
 import Logo from '../assets/icons/logo.png';
 import Login from './Login';
 import product from '../assets/images/product.jpg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import img from '../assets/images/homeimg.jpg';
@@ -21,9 +22,12 @@ const width = Dimensions.get('window').width;
 
 import axios from 'axios';
 
-const OfferProducts = () => {
+const OfferProducts = ({navigation}) => {
   const [data, setdata] = useState();
   const [loading, setLoading] = useState(true);
+
+  const [value, setvalue] = useState(0);
+  const [total, settotal] = useState(0);
 
   const fetchHandler = async () => {
     await axios
@@ -138,8 +142,38 @@ const OfferProducts = () => {
           );
         }}
         renderItem={({item}) => {
+          const productPrice = `Rs. ${
+            zone == 'north'
+              ? item.north_price
+              : zone == 'south'
+              ? item.south_price
+              : zone == 'east'
+              ? item.east_price
+              : zone == 'west'
+              ? item.west_price
+              : item.MRP
+          }`;
+
+          const increment = () => {
+            setvalue(value + 1);
+            settotal(total + 1);
+          };
+
+          const decrement = () => {
+            setvalue(value - 1);
+            settotal(total - 1);
+          };
           return (
-            <View style={styles.shadowboxlarge}>
+            <TouchableOpacity
+              style={styles.shadowboxlarge}
+              activeOpacity={0.7}
+              onPress={() =>
+                navigation.navigate('ProductDetail', {
+                  productId: item.srno,
+                  productPrice: productPrice,
+                  uname: uname,
+                })
+              }>
               <Image
                 source={product}
                 style={{
@@ -150,24 +184,69 @@ const OfferProducts = () => {
               />
               <View style={{width: '60%'}}>
                 <Text style={styles.producttitle}>{item.Title}</Text>
+                <Text style={styles.productcompany}>{item.Company}</Text>
+                <Text style={styles.productmodel}>{item.Vehicle_Model}</Text>
 
                 <Text style={{fontWeight: '600', fontSize: 16}}>
                   {`Rs. ${item.MRP}`}
                 </Text>
-                <TouchableOpacity
+                <View
                   style={{
-                    backgroundColor: '#c4171d',
-                    height: 28,
-                    width: 100,
-                    backgroundColor: '#c4171d',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 3,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                   }}>
-                  <Text style={{color: '#ffff'}}>ADD TO CART</Text>
-                </TouchableOpacity>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      backgroundColor: '#dddddd',
+                      borderRadius: 5,
+                      width: '30%',
+                      alignItems: 'center',
+                      justifyContent: 'space-evenly',
+                    }}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={decrement}>
+                      <Ionicons name="remove" size={18} color="black" />
+                    </TouchableOpacity>
+                    <Text style={{fontWeight: '500', color: 'black'}}>
+                      {value}
+                    </Text>
+
+                    <TouchableOpacity activeOpacity={0.8} onPress={increment}>
+                      <Ionicons name="add" size={18} color="black" />
+                    </TouchableOpacity>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      addToCartHandler(item.srno);
+                    }}
+                    activeOpacity={0.8}
+                    style={{
+                      backgroundColor: '#c4171d',
+                      height: 28,
+
+                      width: 100,
+                      backgroundColor: '#c4171d',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 3,
+                    }}>
+                    <Text style={{color: '#ffff'}}>ADD TO CART</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      addToWishlist(item.srno);
+                    }}>
+                    <AntDesign
+                      name="heart"
+                      size={22}
+                      backgroundColor="green"
+                      color={'grey'}
+                      style={{}}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />
@@ -222,6 +301,16 @@ const styles = StyleSheet.create({
   producttitle: {
     fontSize: 18,
     fontWeight: '600',
+    color: 'black',
+  },
+  productcompany: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
+  },
+  productmodel: {
+    fontSize: 16,
+    fontWeight: '500',
     color: 'black',
   },
 });

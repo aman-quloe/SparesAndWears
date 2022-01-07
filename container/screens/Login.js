@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
@@ -53,6 +54,11 @@ const Login = ({navigation}) => {
 
         if (response.data.success == 'true') {
           navigation.navigate('Bottom');
+          try {
+            await AsyncStorage.setItem('username', username);
+          } catch (e) {
+            // saving error
+          }
         } else {
           // if user is not valid
 
@@ -117,6 +123,7 @@ const Login = ({navigation}) => {
             value={password}
             onChangeText={setpassword}></TextInput>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={{alignSelf: 'flex-end', marginHorizontal: '6%'}}>
             <Text
               style={{
@@ -129,6 +136,7 @@ const Login = ({navigation}) => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            activeOpacity={0.8}
             // onPress={() => navigation.navigate('Home', {name: 'Home'})}
             onPress={loginHandler}
             style={{
@@ -142,6 +150,7 @@ const Login = ({navigation}) => {
             <Text style={{color: '#ffff', fontSize: 18}}>Sign In!</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() =>
               navigation.navigate('RetailerRegister', {
                 name: 'RetailerRegister',
